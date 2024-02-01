@@ -49,7 +49,32 @@ return function (RouteBuilder $routes): void {
      */
     $routes->setRouteClass(DashedRoute::class);
 
-    $routes->setExtensions(['json', 'xml']);
+    $routes->scope('/api', ['prefix' => 'api'], function (RouteBuilder $routes) {
+        $routes->setExtensions(['json']);
+
+        $routes->post(
+            '/login',
+            ['controller' => 'Users', 'action' => 'login'],
+            'login'
+        );
+        
+        $routes->post(
+            '/logout',
+            ['controller' => 'Users', 'action' => 'logout'],
+            'logout'
+        );
+
+        $routes->post(
+            '/articles/{id}/favorite',
+            ['controller' => 'Articles', 'action' => 'favorite'],
+            'articles:favorite'
+        )
+            ->setPatterns(['id' => '\d+'])
+            ->setPass(['id']);
+
+        $routes->resources('Articles');
+
+    });
 
     $routes->scope('/', function (RouteBuilder $builder): void {
         /*
@@ -64,7 +89,6 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
-        $builder->resources('Articles');
 
         /*
          * Connect catchall routes for all controllers.

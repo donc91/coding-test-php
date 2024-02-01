@@ -1,5 +1,5 @@
 <?php
-// declare(strict_types=1);
+declare(strict_types=1);
 
 namespace App\Model\Table;
 
@@ -7,7 +7,6 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Articles Model
@@ -31,9 +30,8 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class ArticlesTable extends Table
+class UserFavoriteArticlesTable extends Table
 {
-    use LocatorAwareTrait;
     /**
      * Initialize method
      *
@@ -44,8 +42,7 @@ class ArticlesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('articles');
-        $this->setDisplayField('title');
+        $this->setTable('user_favorite_articles');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp', [
@@ -59,11 +56,12 @@ class ArticlesTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER',
+            'joinType' => 'INNER'
         ]);
 
-        $this->hasMany('UserFavoriteArticles', [
+        $this->belongsTo('Articles', [
           'foreignKey' => 'article_id',
+          'joinType' => 'INNER'
         ]);
     }
 
@@ -104,33 +102,5 @@ class ArticlesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
-    }
-
-    public function getArticleFavorites($userId) {
-        $query = $this->find();
-        $select = [
-            'count' => $query->func()->count('c.id')
-        ];
-        if ($userId) {
-            $select['favourite'] = $query->func()->count('f.id');
-        }
-        $query->select($select);
-
-        $query->leftJoin(
-            ['c' => 'user_favorite_articles'],
-            ['c.article_id = Articles.id']
-        );
-        if ($userId) {
-            $query->leftJoin(
-                ['f' => 'user_favorite_articles'],
-                [
-                    'f.user_id' => $userId,
-                    'f.article_id = Articles.id'
-                ]
-                );
-        }
-        $query->group(['Articles.id'])
-            ->enableAutoFields(true);
-        return $query;
     }
 }

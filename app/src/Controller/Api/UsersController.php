@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
+use App\Controller\AppController;
 use Cake\Event\EventInterface;
 use Cake\Utility\Security;
 use Firebase\JWT\JWT;
@@ -18,7 +19,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'register']);
+        $this->Authentication->allowUnauthenticated(['login']);
     }
 
     public function login()
@@ -28,11 +29,12 @@ class UsersController extends AppController
             $user = $result->getData();
             $payload = [
                 'sub' => $user->id,
-                'exp' => time() + 60,
+                'exp' => time() + 3600,
             ];
 
             $json = [
                 'token' => JWT::encode($payload, Security::getSalt(), 'HS256'),
+                'user_id' => $user->id,
             ];
         } else {
             $this->response = $this->response->withStatus(401);

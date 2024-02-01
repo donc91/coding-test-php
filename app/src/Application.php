@@ -70,6 +70,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             $this->addPlugin('DebugKit');
         }
 
+        $this->addPlugin('Authentication');
         // Load more plugins here
     }
 
@@ -104,7 +105,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             
             // Add the Authentication Middleware
             ->add(new AuthenticationMiddleware($this));
-
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             // ->add(new CsrfProtectionMiddleware([

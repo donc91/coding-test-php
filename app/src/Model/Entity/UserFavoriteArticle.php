@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Authentication\PasswordHasher\DefaultPasswordHasher; 
 use Cake\ORM\Entity;
 
 /**
- * Article Entity
+ * User Entity
  *
  * @property int $id
- * @property int $user_id
- * @property string $title
- * @property string $slug
- * @property string|null $body
- * @property bool|null $published
+ * @property string $email
+ * @property string $password
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Article[] $articles
  */
-class Article extends Entity
+class UserFavoriteArticle extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,11 +29,7 @@ class Article extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
-        'title' => true,
-        'body' => true,
-        'created_at' => true,
-        'updated_at' => true,
+        'article' => true,
         'user' => true
     ];
 }
