@@ -48,16 +48,19 @@ bin/cake migrations seed
 ```
 Access to applicatoin at http://localhost:34251
 
-Login with list of accounts bellow:
+Login with the list of accounts below:
+
 test1@email.com / 12345678a
+
 test2@email.com / 12345678a
+
 test3@email.com / 12345678a
 
 ### Article Management
 
 TODO: pls summarize how to check "Article Management" behavior
 
-After login, user has been redirect to list article, then user can view, edit, delete, like article
+After login, user is redirected to list articles, then the user can view, edit, delete, like an article
 
 ### Like Feature
 
