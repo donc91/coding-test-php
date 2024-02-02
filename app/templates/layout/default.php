@@ -52,4 +52,5 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <footer>
     </footer>
 </body>
+<?= $this->AssetMix->script('app') ?>
 </html>

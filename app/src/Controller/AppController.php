@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -44,6 +45,8 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
+
         
         // if (!$this->request->is('json')) {
         //     throw new \Cake\Http\Exception\BadRequestException();
@@ -53,5 +56,14 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // for all controllers in our application, make index and view
+        // actions public, skipping the authentication check
+        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+        $this->Authorization->skipAuthorization();
     }
 }

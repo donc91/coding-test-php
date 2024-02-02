@@ -62,6 +62,7 @@ class ArticlesController extends AppController
 
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
+            $this->Authorization->authorize($article);
 
             // Added: Set the user_id from the session.
             $article->user_id = $this->request->getAttribute('identity')->getIdentifier();
@@ -93,22 +94,7 @@ class ArticlesController extends AppController
     {
         $this->request->allowMethod(['patch', 'post', 'put']);
         $article = $this->Articles->get($id);
-        if (!$article) {
-            return $this->setJsonResponse(
-                [
-                    'errors' => ['Record not found']
-                ],
-                404
-            );
-        }
-        if ($article->user_id !== $this->request->getAttribute('identity')->getIdentifier()) {
-            return $this->setJsonResponse(
-                [
-                    'errors' => ['Invalid requests']
-                ],
-                422
-            );
-        }
+        $this->Authorization->authorize($article);
 
         $this->Articles->patchEntity($article, $this->request->getData(), [
             // Added: Disable modification of user_id.
@@ -134,22 +120,7 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
 
         $article = $this->Articles->get($id);
-        if (!$article) {
-            return $this->setJsonResponse(
-                [
-                    'errors' => ['Record not found']
-                ],
-                404
-            );
-        }
-        if ($article->user_id !== $this->request->getAttribute('identity')->getIdentifier()) {
-            return $this->setJsonResponse(
-                [
-                    'errors' => ['Invalid requests']
-                ],
-                422
-            );
-        }
+        $this->Authorization->authorize($article);
 
         if ($this->Articles->delete($article)) {
             return $this->setJsonResponse([
