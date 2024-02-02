@@ -2,7 +2,7 @@
     <div class="posts form large-9 medium-8 columns content">
         <form novalidate="novalidate" @submit.prevent="onSubmit">
             <fieldset>
-                <legend>Add Article</legend>
+                <legend>Edit Article</legend>
                 <div class="input text required">
                     <label for="title">Title</label>
                     <input type="text" name="title" v-model="title" :disabled="submiting">
