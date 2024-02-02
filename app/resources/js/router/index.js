@@ -11,7 +11,7 @@ import PageNotFound from '../views/PageNotFound.vue';
 import Login from '../views/Login.vue';
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     routes: [
         {
             path: '/',

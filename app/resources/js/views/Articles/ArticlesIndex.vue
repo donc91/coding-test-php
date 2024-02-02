@@ -32,14 +32,14 @@
             <td class="actions">
               <router-link :to="{ name: 'viewArticles', params: { id: article.id } }">View</router-link>
               <template v-if="isAuthenticated && !article.favourite">
-                <a @click="_favorite(article)" class="item" title="Like" :disabled="favorting">Like</a>
+                <a @click="_favorite(article)" title="Like" :disabled="favorting">Like</a>
               </template>
               <template v-if="isAuthenticated && article.favourite">
                 Liked
               </template>
               <template v-if="currentUser && currentUser.user_id === article.user_id">
                 <router-link :to="{ name: 'editArticles', params: { id: article.id } }">Edit</router-link>
-                <a @click="_delete(article.id)" class="item" title="Remove" :disabled="removing">Remove</a>
+                <a @click="_delete(article.id)" title="Remove" :disabled="removing">Remove</a>
               </template>
             </td>
           </tr>

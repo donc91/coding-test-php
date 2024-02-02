@@ -157,6 +157,8 @@ class ArticlesController extends AppController
         $favorite->user_id = $this->request->getAttribute('identity')->getIdentifier();
         $favorite->article_id = $id;
 
+        $this->Authorization->authorize($favorite);
+
         if ($favouriteTable->save($favorite)) {
             return $this->setJsonResponse(
                 [

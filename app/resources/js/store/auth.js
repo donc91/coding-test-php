@@ -30,7 +30,7 @@ const actions = {
           context.commit(SET_AUTH, res.data);
           resolve(res.data);
         })
-        .catch((response) => {
+        .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
         });
     });
@@ -45,8 +45,7 @@ const actions = {
         .then(data => {
           context.commit(SET_AUTH, ...data);
         })
-        .catch(response => {
-          console.log(response)
+        .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
         });
     } else {

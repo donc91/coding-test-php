@@ -1,6 +1,6 @@
 <template>
   <nav class="top-bar expanded" data-topbar role="navigation">
-      <div class="top-bar-section tr">
+      <div class="top-bar-section">
           <ul class="right no-list-style">
               <li><router-link :to="{ name: 'root' }">Home</router-link></li>
               <li><router-link :to="{ name: 'articles' }">Articles</router-link></li>

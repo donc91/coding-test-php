@@ -23,8 +23,8 @@
             <td>{{ record.title }}</td>
         </tr>
         <tr>
-            <th scope="row">body</th>
-            <td>{{ record.Body }}</td>
+            <th scope="row">Body</th>
+            <td>{{ record.body }}</td>
         </tr>
         <tr>
             <th scope="row">Created</th>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <th scope="row">Modified</th>
-            <td>{{ record.modified_at }}</td>
+            <td>{{ record.updated_at }}</td>
         </tr>
       </table>
   </div>
