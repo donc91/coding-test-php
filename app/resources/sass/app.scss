@@ -3,3 +3,21 @@ $primary: grey;
 .app {
     background: $primary;
 }
+
+.row {
+    .columns {
+        flex: 1;
+    }
+}
+
+.no-list-style {
+    list-style-type: none;
+    li {
+        display: inline-block;
+        padding: 0 15px;
+    }
+}
+
+.tr {
+    text-align: right;
+}

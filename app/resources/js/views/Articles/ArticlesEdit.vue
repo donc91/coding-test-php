@@ -24,49 +24,49 @@
     import { ArticlesService } from "../../common/api";
   
     export default {
-    data() {
-        return {
-            title: '',
-            body: '',
-            submiting: false
-        };
-    },
-
-    computed: {
-        ...mapGetters(["isAuthenticated", "currentUser"])
-
-    },
-
-    mounted() {
-        this.load()
-    },
-
-    methods: {
-        load() {
-            console.log(this.$route.params.id)
-            ArticlesService
-                .get(this.$route.params.id)
-                .then(response => {
-                    this.title = response.data.article.title
-                    this.body = response.data.article.body
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+        data() {
+            return {
+                title: '',
+                body: '',
+                submiting: false
+            };
         },
 
-        onSubmit(event) {
-            this.submiting = true
-            ArticlesService.update(this.$route.params.id, { 'title': this.title, 'body': this.body })
-                .then(response => {
-                    this.$router.push({ name: 'articles' })
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-                .finally(this.submiting = false)
+        computed: {
+            ...mapGetters(["isAuthenticated", "currentUser"])
+
+        },
+
+        mounted() {
+            this.load()
+        },
+
+        methods: {
+            load() {
+                console.log(this.$route.params.id)
+                ArticlesService
+                    .get(this.$route.params.id)
+                    .then(response => {
+                        this.title = response.data.article.title
+                        this.body = response.data.article.body
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            },
+
+            onSubmit(event) {
+                this.submiting = true
+                ArticlesService.update(this.$route.params.id, { 'title': this.title, 'body': this.body })
+                    .then(response => {
+                        this.$router.push({ name: 'articles' })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+                    .finally(this.submiting = false)
+            }
         }
     }
-}
   </script>
   

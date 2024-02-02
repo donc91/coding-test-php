@@ -1,49 +1,50 @@
 <template>
   <div class="posts index large-9 medium-8 columns content">
-      <div class="row">
-          <div class="columns large-6">
-              <h3>Article</h3>
-          </div>
-          <div class="columns large-6 clearfix">
-              <router-link
-                  :to="{ name: 'addArticles' }"
-                  class="button shadow radius right small">Add Article</router-link>
-          </div>
+    <div class="row">
+      <div class="columns large-6">
+        <h3>Article</h3>
       </div>
-      <table cellpadding="0" cellspacing="0">
-          <thead>
-              <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Body</th>
-                  <th scope="col">Likes</th>
-                  <th scope="col">Created</th>
-                  <th scope="col" class="actions">Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr v-for="article, key in records" :key="key">
-                  <td>{{ article.id }}</td>
-                  <td>{{ article.title }}</td>
-                  <td>{{ article.body }}</td>
-                  <td>{{ article.count }}</td>
-                  <td>{{ article.created | moment }}</td>
-                  <td class="actions">
-                    <router-link :to="{ name: 'viewArticles', params: { id: article.id } }">View</router-link>
-                    <template v-if="isAuthenticated && !article.favourite">
-                      <a @click="_favorite(article)" class="item" title="Like" :disabled="favorting">Like</a>
-                    </template>
-                    <template v-if="isAuthenticated && article.favourite">
-                      Liked
-                    </template>
-                    <template v-if="currentUser && currentUser.user_id === article.user_id">
-                      <router-link :to="{ name: 'editArticles', params: { id: article.id } }">Edit</router-link>
-                      <a @click="_delete(article.id)" class="item" title="Remove" :disabled="removing">Remove</a>
-                    </template>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
+      <div class="columns large-6 tr">
+        <router-link
+          v-if="isAuthenticated"
+          :to="{ name: 'addArticles' }"
+          class="button shadow radius left small">Add Article</router-link>
+      </div>
+    </div>
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Body</th>
+          <th scope="col">Likes</th>
+          <th scope="col">Created</th>
+          <th scope="col" class="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr v-for="article, key in records" :key="key">
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.body }}</td>
+            <td>{{ article.count }}</td>
+            <td>{{ article.created_at }}</td>
+            <td class="actions">
+              <router-link :to="{ name: 'viewArticles', params: { id: article.id } }">View</router-link>
+              <template v-if="isAuthenticated && !article.favourite">
+                <a @click="_favorite(article)" class="item" title="Like" :disabled="favorting">Like</a>
+              </template>
+              <template v-if="isAuthenticated && article.favourite">
+                Liked
+              </template>
+              <template v-if="currentUser && currentUser.user_id === article.user_id">
+                <router-link :to="{ name: 'editArticles', params: { id: article.id } }">Edit</router-link>
+                <a @click="_delete(article.id)" class="item" title="Remove" :disabled="removing">Remove</a>
+              </template>
+            </td>
+          </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -112,11 +113,6 @@
             this.removing = false
           })
       }
-    },
-    filters: {
-        moment: function (date) {
-            return moment(date).format('YYYY-MM-DD, hh:mm A');
-        }
     }
   }
 </script>
