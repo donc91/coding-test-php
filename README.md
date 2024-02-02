@@ -40,11 +40,24 @@ The application should now be accessible at http://localhost:34251
 
 ### Authentication
 
-TODO: pls summarize how to check "Authentication" bahavior
+TODO: pls summarize how to check "Authentication" behavior
+
+Setup the user seed:
+```
+bin/cake migrations seed
+```
+Access to applicatoin at http://localhost:34251
+
+Login with list of accounts bellow:
+test1@email.com / 12345678a
+test2@email.com / 12345678a
+test3@email.com / 12345678a
 
 ### Article Management
 
-TODO: pls summarize how to check "Article Management" bahavior
+TODO: pls summarize how to check "Article Management" behavior
+
+After login, user has been redirect to list article, then user can view, edit, delete, like article
 
 ### Like Feature
 
